@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="spoilerTag" title="Spoiler bbCode" version_string="1.1.0" version_id="2" url="" install_callback_class="TheCollectiveMind_Spoiler" install_callback_method="setUp" uninstall_callback_class="TheCollectiveMind_Spoiler" uninstall_callback_method="tearDown">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="load_class_bb_code" execute_order="20" callback_class="TheCollectiveMind_Listener_SpoilerBbCode" callback_method="listen" active="1" description=""/>
+    <listener event_id="template_hook" execute_order="10" callback_class="TheCollectiveMind_Listener_SpoilerTemplateHooks" callback_method="templateHook" active="1" description=""/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="spoiler" version_id="1" version_string="1.0.0"><![CDATA[Spoiler]]></phrase>
+    <phrase title="user_field_autoExpandSpoilers" version_id="1" version_string="1.0.0"><![CDATA[Auto Expand Spoiler]]></phrase>
+    <phrase title="user_field_autoExpandSpoilers_choice_true" version_id="1" version_string="1.0.0"><![CDATA[Expand Spoilers]]></phrase>
+    <phrase title="user_field_autoExpandSpoilers_desc" version_id="1" version_string="1.0.0"><![CDATA[All spoiler tags will appear expanded when viewing a thread.]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates>
+    <template title="TheCollectiveMind_Spoiler" version_id="1" version_string="1.0.0"><![CDATA[<xen:require css="bb_code.css" />
+<xen:require css="TheCollectiveMind_Spoiler.css" />
+<xen:require js="js/thecollectivemind/spoiler.js" />
+
+<xen:if is="{$visitor.customFields.autoExpandSpoilers}">
+<div class="bbCodeBlock bbCodeCode bbCodeSpoiler open">
+<xen:else/>
+<div class="bbCodeBlock bbCodeCode bbCodeSpoiler">
+</xen:if>
+    <aside>
+        <div class="attribution type">
+            <a class="prefixLink spoiler">
+                <span class="prefix prefixGray">{xen:phrase spoiler}</span>
+            </a><xen:if is="{$spoiler}">{$spoiler}</xen:if>
+        </div>
+    </aside>
+</div>
+<xen:if is="{$visitor.customFields.autoExpandSpoilers}">
+<div class="bbCodeSpoilerContent open">{xen:raw $content}</div>
+<xen:else/>
+<div class="bbCodeSpoilerContent">{xen:raw $content}</div>
+</xen:if>]]></template>
+    <template title="TheCollectiveMind_Spoiler.css" version_id="1" version_string="1.0.0"><![CDATA[.bbCodeBlock.bbCodeSpoiler {
+    margin-right: 0;
+}
+.bbCodeBlock.bbCodeSpoiler.open{
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.bbCodeBlock.bbCodeSpoiler .attribution {
+    border-bottom: 0;
+    height: 15px;
+}
+.bbCodeBlock.bbCodeSpoiler .attribution a {
+    cursor: pointer;
+}
+.bbCodeBlock.bbCodeSpoiler .attribution a span {
+    font-size: 12px;
+    float: right;
+}
+.bbCodeSpoilerContent {
+    display: none;
+    border: 1px solid {xen:property primaryLighterStill};
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: {xen:property primaryLightest};
+    padding: 3px 5px;
+}
+.bbCodeSpoilerContent.open {
+    display: block;
+}
+.bbCodeSpoilerContent .bbCodeBlock.bbCodeSpoiler {
+    margin-top: 0;
+    margin-bottom: 0;
+}]]></template>
+  </templates>
+  <bb_code_media_sites/>
+</addon>
