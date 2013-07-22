@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="spoilerTag" title="Spoiler bbCode" version_string="1.1.0" version_id="2" url="" install_callback_class="TheCollectiveMind_Spoiler" install_callback_method="setUp" uninstall_callback_class="TheCollectiveMind_Spoiler" uninstall_callback_method="tearDown">
+<addon addon_id="spoilerTag" title="Spoiler bbCode" version_string="1.2.0" version_id="4" url="" install_callback_class="TheCollectiveMind_Spoiler" install_callback_method="setUp" uninstall_callback_class="TheCollectiveMind_Spoiler" uninstall_callback_method="tearDown">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
   <admin_templates/>
+  <admin_template_modifications/>
   <code_events/>
   <code_event_listeners>
-    <listener event_id="load_class_bb_code" execute_order="20" callback_class="TheCollectiveMind_Listener_SpoilerBbCode" callback_method="listen" active="1" description=""/>
-    <listener event_id="template_hook" execute_order="10" callback_class="TheCollectiveMind_Listener_SpoilerTemplateHooks" callback_method="templateHook" active="1" description=""/>
+    <listener event_id="load_class_bb_code" execute_order="20" callback_class="TheCollectiveMind_Listener_SpoilerBbCode" callback_method="listen" active="1" hint="" description=""/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
+  <email_template_modifications/>
   <optiongroups/>
   <permissions>
     <permission_groups/>
@@ -18,7 +19,7 @@
     <interface_groups/>
   </permissions>
   <phrases>
-    <phrase title="spoiler" version_id="1" version_string="1.0.0"><![CDATA[Spoiler]]></phrase>
+    <phrase title="tcm_spoiler_desc" version_id="2" version_string="1.1.0"><![CDATA[Spoiler]]></phrase>
     <phrase title="user_field_autoExpandSpoilers" version_id="1" version_string="1.0.0"><![CDATA[Auto Expand Spoiler]]></phrase>
     <phrase title="user_field_autoExpandSpoilers_choice_true" version_id="1" version_string="1.0.0"><![CDATA[Expand Spoilers]]></phrase>
     <phrase title="user_field_autoExpandSpoilers_desc" version_id="1" version_string="1.0.0"><![CDATA[All spoiler tags will appear expanded when viewing a thread.]]></phrase>
@@ -48,7 +49,7 @@
 <xen:else/>
 <div class="bbCodeSpoilerContent">{xen:raw $content}</div>
 </xen:if>]]></template>
-    <template title="TheCollectiveMind_Spoiler.css" version_id="1" version_string="1.0.0"><![CDATA[.bbCodeBlock.bbCodeSpoiler {
+    <template title="TheCollectiveMind_Spoiler.css" version_id="2" version_string="1.2.0"><![CDATA[.bbCodeBlock.bbCodeSpoiler {
     margin-right: 0;
 }
 .bbCodeBlock.bbCodeSpoiler.open{
@@ -81,7 +82,23 @@
 .bbCodeSpoilerContent .bbCodeBlock.bbCodeSpoiler {
     margin-top: 0;
     margin-bottom: 0;
+}
+html .redactor_toolbar li a.redactor_btn_spoiler,
+html .redactor_toolbar li a.redactor_btn_spoiler:hover {
+    background: url('js/thecollectivemind/spoiler.png') no-repeat 3px 3px;
 }]]></template>
   </templates>
+  <public_template_modifications>
+    <modification template="editor_js_setup" modification_key="tcm_spoiler_desc" description="Spoiler Translation" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[redo: "{xen:jsescape {xen:phrase redo_ctrl_y}}",]]></find>
+      <replace><![CDATA[$0
+spoiler: "{xen:jsescape {xen:phrase tcm_spoiler_desc}}",]]></replace>
+    </modification>
+    <modification template="editor_js_setup" modification_key="tcm_spoiler_js" description="Spoiler JavaScript Include" execution_order="20" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:require js="js/redactor/redactor.js" />]]></find>
+      <replace><![CDATA[$0
+<xen:require js="js/thecollectivemind/redactorEditorButton.js" />]]></replace>
+    </modification>
+  </public_template_modifications>
   <bb_code_media_sites/>
 </addon>
