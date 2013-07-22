@@ -1,6 +1,10 @@
 XenForoSpoilerBBCode
 ====================
 
+v1.2.0
+----
+-  Plugin now supports and requires XenForo version 1.2.0.
+
 v1.1.1
 ----
 -  Included missing JavaScript for spoilers.  v1.1.0 is broken and should not be used.
